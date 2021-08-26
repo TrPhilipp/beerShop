@@ -25,6 +25,7 @@
 .beer__btn {
   display: none;
   width: 60px;
+  color: #000;
 }
 
 .beer__btn:hover {
