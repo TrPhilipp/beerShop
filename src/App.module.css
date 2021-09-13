@@ -18,7 +18,8 @@ button {
   text-transform: uppercase;
   color: #fff;
 }
-.content {
+
+.App {
   max-width: 1140px;
   margin: 0 auto;
 }
@@ -37,8 +38,10 @@ button {
   filter: brightness(90%);
 }
 
-@media (max-width: 720px) {
-  .content__search {
-    margin: 10px;
-  }
+.search__wrapper {
+  margin-top: 20px;
 }
+
+/* @media (max-width: 720px) {
+  
+} */

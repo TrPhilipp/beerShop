@@ -3,6 +3,7 @@ import { getAllBeer } from './../redux/actions'
 import Loader from './../components/Loader/Loader'
 import Search from '../components/Search/Search'
 import BeerCatalog from '../components/BeerCatalog/BeerCatalog'
+import classes from '../App.module.css'
 
 const Catalog = () => {
   const { isLoading, isReady } = useSelector((state) => state.app)
@@ -19,12 +20,14 @@ const Catalog = () => {
   return (
     <div className="content">
       {!isReady ? (
-        <button className="content__btn" onClick={() => loadBeer()}>
+        <button className={classes.content__btn} onClick={() => loadBeer()}>
           Load catalog
         </button>
       ) : (
         <>
-          <Search />
+          <div className={classes.search__wrapper}>
+            <Search />
+          </div>
           <BeerCatalog />
         </>
       )}

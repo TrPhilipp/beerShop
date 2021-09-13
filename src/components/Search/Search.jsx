@@ -1,7 +1,7 @@
 import React from 'react'
-import './Search.css'
 import { useDispatch } from 'react-redux'
 import { filterBeer } from './../../redux/actions'
+import classes from './Search.module.css'
 
 const Search = () => {
   const dispatch = useDispatch()
@@ -11,9 +11,13 @@ const Search = () => {
     dispatch(filterBeer(search))
   }
   return (
-    <div>
-      <input className="search" placeholder="Search" onChange={searchBeer} />
-    </div>
+    <>
+      <input
+        className={classes.search}
+        placeholder="Search"
+        onChange={searchBeer}
+      />
+    </>
   )
 }
 

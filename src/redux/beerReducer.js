@@ -86,7 +86,7 @@ export const beerReducer = (state = initialState, action) => {
           beer: {
             ...state.columns.beer,
             items: state.currentBeer.filter((beer) =>
-              beer.name.toLowerCase().includes(action.payload.toLowerCase())
+              filterItems(beer, action.payload)
             ),
           },
         },
@@ -99,4 +99,8 @@ export const beerReducer = (state = initialState, action) => {
     default:
       return state
   }
+}
+
+function filterItems(item, searchQuery) {
+  return item.name.toLowerCase().includes(searchQuery.toLowerCase())
 }

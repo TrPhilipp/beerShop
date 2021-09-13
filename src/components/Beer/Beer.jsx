@@ -1,8 +1,11 @@
 import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import './Beer.css'
+// import './Beer.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { reshuflleColums, setBeer, setCurrentBeer } from '../../redux/actions'
+import { COLUMN_ID } from '../../utils/consts'
+import { COLORS } from './../../utils/consts'
+import classes from './Beer.module.css'
 
 const Beer = ({ item, index, columnId }) => {
   const { columns } = useSelector((state) => state.beer)
@@ -29,7 +32,7 @@ const Beer = ({ item, index, columnId }) => {
     }
     dispatch(setCurrentBeer(newColumns.beer.items))
     dispatch(reshuflleColums(newColumns))
-    if (columnId === 'beer') {
+    if (columnId === COLUMN_ID.BEER) {
       dispatch(setBeer(1))
     }
   }
@@ -38,23 +41,27 @@ const Beer = ({ item, index, columnId }) => {
     <Draggable key={item.id} draggableId={item.name} index={index}>
       {(provided, snapshot) => (
         <div
-          className="beer"
+          className={classes.beer}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           style={{
-            backgroundColor: snapshot.isDragging ? '#436e6d' : '#69c2c0',
+            backgroundColor: snapshot.isDragging
+              ? COLORS.ITEM_DRAGGING
+              : COLORS.ITEM_STANDART,
             ...provided.draggableProps.style,
           }}
         >
-          <span className="beer__name">{item.name}</span>
+          <span className={classes.beer__name}>{item.name}</span>
           <button
-            className="beer__btn"
+            className={classes.beer__btn}
             onClick={() => handleItem(columnId, index)}
           >
             <i
               className={
-                columnId === 'beer' ? 'fas fa-shopping-cart' : 'fas fa-trash'
+                columnId === COLUMN_ID.BEER
+                  ? 'fas fa-shopping-cart'
+                  : 'fas fa-trash'
               }
             ></i>
           </button>

@@ -21,12 +21,10 @@ export const reshuffleColumn = (columnName, column) => ({
   payload: { columnName, column },
 })
 
-export const reshuflleColums = (columns) => {
-  return {
-    type: actions.RESHUFFLE_COLUMNS,
-    payload: columns,
-  }
-}
+export const reshuflleColums = (columns) => ({
+  type: actions.RESHUFFLE_COLUMNS,
+  payload: columns,
+})
 
 export const addAll = () => ({ type: actions.ADD_ALL })
 export const removeAll = () => ({ type: actions.REMOVE_ALL })

@@ -1,6 +1,6 @@
 import React from 'react'
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
-import './App.css'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import classes from './App.module.css'
 import Home from './pages/Home'
 import Catalog from './pages/Catalog'
 import About from './pages/About'
@@ -10,12 +10,13 @@ const App = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Switch>
-        <Route path={'/'} component={Home} exact />
-        <Route path={'/catalog'} component={Catalog} exact />
-        <Route path={'/about'} component={About} exact />
-        <Redirect to={'/'} />
-      </Switch>
+      <div className={classes.App}>
+        <Switch>
+          <Route path={'/catalog'} component={Catalog} exact />
+          <Route path={'/about'} component={About} exact />
+          <Route path={'/'} component={Home} />
+        </Switch>
+      </div>
     </BrowserRouter>
   )
 }

@@ -1,17 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './Nav.css'
+import classes from './Nav.module.css'
+
+const ROUTES = {
+  HOME_PAGE: '/',
+  CATALOG: '/catalog',
+  ABOUT: '/about',
+}
 
 const Nav = () => {
   return (
-    <div className="nav">
-      <Link className="nav__link" to={'/'}>
+    <div className={classes.nav}>
+      <Link className={classes.nav__link} to={ROUTES.HOME_PAGE}>
         Home
       </Link>
-      <Link className="nav__link" to={'/catalog'}>
+      <Link className={classes.nav__link} to={ROUTES.CATALOG}>
         Catalog
       </Link>
-      <Link className="nav__link" to={'/about'}>
+      <Link className={classes.nav__link} to={ROUTES.ABOUT}>
         About
       </Link>
     </div>
