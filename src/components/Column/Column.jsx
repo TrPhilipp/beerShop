@@ -9,7 +9,6 @@ import classes from './Column.module.css'
 const Column = ({ columnId, column }) => {
   const dispatch = useDispatch()
   const buttonClasses = [classes.column__btn, classes[`btn__${columnId}`]]
-  // buttonClasses.push()
   const handleItems = (columnId) => {
     if (columnId === COLUMN_ID.BEER) {
       dispatch(addAll())
@@ -22,6 +21,7 @@ const Column = ({ columnId, column }) => {
     (e.target.scrollTop + e.target.clientHeight) / e.target.scrollHeight > 0.75
 
   const handleScroll = (e) => {
+    if (columnId !== COLUMN_ID.BEER) return
     if (checkHeight(e)) {
       dispatch(setBeer(10))
     }
