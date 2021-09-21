@@ -6,16 +6,13 @@ export const getAllBeer = () => async (dispatch) => {
     dispatch(setLoad())
     const response = await BeerApi.getAllBeer()
     dispatch({ type: actions.GET_ALL_BEER, payload: response })
-    dispatch(setBeer(20))
+    dispatch(addBeer(20))
     dispatch(setLoad())
     dispatch(setReady())
   } catch (error) {
     console.log(error)
   }
 }
-
-export const setBeer = (count) => ({ type: actions.SET_BEER, payload: count })
-
 export const reshuffleColumn = (columnName, column) => ({
   type: actions.RESHUFFLE_COLUMN,
   payload: { columnName, column },
@@ -36,7 +33,5 @@ export const filterBeer = (search) => ({
 
 export const setLoad = () => ({ type: actions.SET_LOAD })
 export const setReady = () => ({ type: actions.SET_READY })
-export const setCurrentBeer = (beer) => ({
-  type: actions.SET_CURRENT_BEER,
-  payload: beer,
-})
+
+export const addBeer = (count) => ({ type: actions.ADD_BEER, payload: count })

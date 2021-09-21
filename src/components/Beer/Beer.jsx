@@ -2,10 +2,11 @@ import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 // import './Beer.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { reshuflleColums, setBeer, setCurrentBeer } from '../../redux/actions'
+import { reshuflleColums } from '../../redux/actions'
 import { COLUMN_ID } from '../../utils/consts'
 import { COLORS } from './../../utils/consts'
 import classes from './Beer.module.css'
+import { addBeer } from './../../redux/actions'
 
 const Beer = ({ item, index, columnId }) => {
   const { columns } = useSelector((state) => state.beer)
@@ -30,10 +31,9 @@ const Beer = ({ item, index, columnId }) => {
         items: destItems,
       },
     }
-    dispatch(setCurrentBeer(newColumns.beer.items))
     dispatch(reshuflleColums(newColumns))
     if (columnId === COLUMN_ID.BEER) {
-      dispatch(setBeer(1))
+      dispatch(addBeer(1))
     }
   }
 

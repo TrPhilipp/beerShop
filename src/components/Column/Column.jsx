@@ -2,9 +2,10 @@ import React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import Beer from './../Beer/Beer'
 import { useDispatch } from 'react-redux'
-import { addAll, removeAll, setBeer } from '../../redux/actions'
+import { addAll, removeAll } from '../../redux/actions'
 import { BUTTON_LABEL, COLUMN_ID } from '../../utils/consts'
 import classes from './Column.module.css'
+import { addBeer } from './../../redux/actions'
 
 const Column = ({ columnId, column }) => {
   const dispatch = useDispatch()
@@ -23,7 +24,7 @@ const Column = ({ columnId, column }) => {
   const handleScroll = (e) => {
     if (columnId !== COLUMN_ID.BEER) return
     if (checkHeight(e)) {
-      dispatch(setBeer(10))
+      dispatch(addBeer(10))
     }
   }
 

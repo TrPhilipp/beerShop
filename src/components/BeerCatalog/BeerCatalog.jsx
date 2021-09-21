@@ -2,12 +2,9 @@ import React from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { useSelector, useDispatch } from 'react-redux'
 import Column from '../Column/Column'
-import {
-  reshuflleColums,
-  setCurrentBeer,
-  reshuffleColumn,
-} from '../../redux/actions'
+import { reshuflleColums, reshuffleColumn, addBeer } from '../../redux/actions'
 import classes from './BeerCatalog.module.css'
+import { COLUMN_ID } from '../../utils/consts'
 
 const BeerCatalog = () => {
   const { columns } = useSelector((state) => state.beer)
@@ -34,8 +31,10 @@ const BeerCatalog = () => {
           items: destItems,
         },
       }
-      dispatch(setCurrentBeer(newColumns.beer.items))
       dispatch(reshuflleColums(newColumns))
+      if (source.droppableId === COLUMN_ID.BEER) {
+        dispatch(addBeer(1))
+      }
       return
     }
     const column = columns[source.droppableId]

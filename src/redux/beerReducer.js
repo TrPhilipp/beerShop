@@ -1,12 +1,11 @@
 import {
   ADD_ALL,
+  ADD_BEER,
   FILTER_BEER,
   GET_ALL_BEER,
   REMOVE_ALL,
   RESHUFFLE_COLUMN,
   RESHUFFLE_COLUMNS,
-  SET_BEER,
-  SET_CURRENT_BEER,
 } from './actionTypes'
 
 const initialState = {
@@ -15,7 +14,6 @@ const initialState = {
     basket: { name: 'basket', items: [] },
   },
   allBeer: [],
-  currentBeer: [],
 }
 
 export const beerReducer = (state = initialState, action) => {
@@ -25,20 +23,6 @@ export const beerReducer = (state = initialState, action) => {
         ...state,
         allBeer: [...action.payload],
       }
-    case SET_BEER: {
-      const newBeer = state.allBeer.splice(0, action.payload)
-      return {
-        ...state,
-        columns: {
-          ...state.columns,
-          beer: {
-            ...state.columns.beer,
-            items: [...state.columns.beer.items, ...newBeer],
-          },
-        },
-        currentBeer: [...state.currentBeer, ...newBeer],
-      }
-    }
     case RESHUFFLE_COLUMN:
       return {
         ...state,
@@ -85,22 +69,51 @@ export const beerReducer = (state = initialState, action) => {
           ...state.columns,
           beer: {
             ...state.columns.beer,
-            items: state.currentBeer.filter((beer) =>
-              filterItems(beer, action.payload)
-            ),
+            items: action.payload
+              ? filterBeer(
+                  action.payload,
+                  state.allBeer,
+                  state.columns.basket.items
+                )
+              : returnBeer(state.allBeer, state.columns.basket.items),
           },
         },
       }
-    case SET_CURRENT_BEER:
+    case ADD_BEER:
+      let initialNumber =
+        state.columns.beer.items.length + state.columns.basket.items.length
+      if (initialNumber === 80) {
+        return state
+      }
+      const newArray = [
+        ...state.allBeer.slice(initialNumber, initialNumber + action.payload),
+      ]
       return {
         ...state,
-        currentBeer: [...action.payload],
+        columns: {
+          ...state.columns,
+          beer: {
+            ...state.columns.beer,
+            items: [...state.columns.beer.items, ...newArray],
+          },
+        },
       }
     default:
       return state
   }
 }
 
-function filterItems(item, searchQuery) {
-  return item.name.toLowerCase().includes(searchQuery.toLowerCase())
+function filterBeer(searchQ, allBeer, array2) {
+  return allBeer.filter((item) => {
+    return (
+      item.name.toLowerCase().includes(searchQ.toLowerCase()) &&
+      !array2.some((i) => i.id === item.id)
+    )
+  })
+}
+
+function returnBeer(allBeer, array2) {
+  return allBeer.filter((item) => {
+    return item.id < 21 && !array2.some((i) => i.id === item.id)
+  })
 }
